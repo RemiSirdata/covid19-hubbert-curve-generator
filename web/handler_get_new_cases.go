@@ -7,14 +7,14 @@ import (
 )
 
 func handlerGetNewCases(c *gin.Context) {
-	country := c.Param("country")
+	//country := c.Param("country")
 	region := c.Param("region")
 	start := time.Now().AddDate(0, -2, 0)
 	end := time.Now().AddDate(0, 0, -9)
-	newCases, err := franceRawData.GetDailyNewHospitalisations(start, end)
+	newCases, err := franceRawData.GetDailyNewHospitalisationsForRegion(region, start, end)
 	if err != nil {
 		c.Status(http.StatusInternalServerError)
 		return
 	}
-	c.JSON(newCases)
+	c.JSON(http.StatusOK, newCases)
 }
